@@ -14,6 +14,11 @@ CreateThread(function()
 
         if IsPedShooting(cache.ped) and not hasGSR[serverId] then
             TriggerServerEvent('DE_gsr:addGSR')
+
+            while IsPedShooting(cache.ped) do
+                Wait(100)
+            end
+
             lib.notify({type = 'inform', description = 'Smells of gun powder.'})
             AutoRemove()
         end
@@ -70,7 +75,7 @@ AutoRemove = function()
     local timer = Config.GSRAutoRemove * 60
 
     CreateThread(function()
-        while timer > 0 then
+        while timer > 0 do
 
             local playerId = PlayerId()
             local serverId = GetPlayerServerId(playerId)
